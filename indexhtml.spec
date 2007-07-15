@@ -1,6 +1,6 @@
 %define name indexhtml
-%define version 2007.0
-%define release %mkrel 8
+%define version 2008.0
+%define release %mkrel 1
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -29,8 +29,7 @@ after installation.
 %install
 rm -fr %buildroot/
 
-find $RPM_BUILD_DIR/%name -name "*~" -print | xargs /bin/rm -fr
-find $RPM_BUILD_DIR/%name -name "CVS" -print | xargs /bin/rm -fr
+find $RPM_BUILD_DIR/%name -name ".svn" -print | xargs /bin/rm -fr
 
 install -d -m 0755 %buildroot/%_datadir/mdk/indexhtml/
 tar c -C HTML . | tar x -C %buildroot/%_datadir/mdk/indexhtml/
