@@ -11,7 +11,6 @@ Requires:	wget, gawk
 Source:		%{name}-%{version}.tar.bz2
 Group:		System/Base
 License:	GPL
-BuildRoot:	%_tmppath/%{name}-%{version}-%{release}-root
 BuildArch:	noarch
 
 
