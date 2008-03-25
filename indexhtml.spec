@@ -1,6 +1,6 @@
 %define name indexhtml
 %define version 2008.1
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -8,6 +8,7 @@ Version:	%{version}
 Release: 	%{release}
 URL:		http://start.mandriva.com/
 Requires:	wget, gawk
+Requires(pre):	mandriva-release-common
 Source:		%{name}-%{version}.tar.bz2
 Group:		System/Base
 License:	GPL
