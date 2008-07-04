@@ -1,6 +1,6 @@
 %define name indexhtml
 %define version 2008.1
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -12,7 +12,7 @@ Requires(pre):	mandriva-release-common
 Source:		%{name}-%{version}.tar.bz2
 Group:		System/Base
 License:	GPL
-BuildRoot:	%_tmppath/%{name}-%{version}-%{release}-root
+BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:	noarch
 
 
