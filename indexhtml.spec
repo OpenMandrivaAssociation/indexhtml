@@ -1,6 +1,6 @@
 %define name indexhtml
-%define version 2009.1
-%define release %mkrel 3
+%define version 2010.0
+%define release %mkrel 1
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -9,6 +9,7 @@ Release: 	%{release}
 URL:		http://start.mandriva.com/
 #Requires:	wget, gawk
 Requires(pre):	mandriva-release-common
+BuildRequires:  intltool
 Source:		%{name}-%{version}.tar.bz2
 Group:		System/Base
 License:	GPL
@@ -18,14 +19,16 @@ BuildArch:	noarch
 
 %description
 Mandriva Linux index.html welcome page displayed by web browsers
-when they are launched; and first mail displayed on mail clients
-after installation.
+when they are launched, first mail displayed on mail clients
+after installation and "about" information.
 
 %prep
 
 %setup -q
 
 %build
+cd about
+./create_html.sh
 
 %install
 rm -fr %buildroot/
@@ -71,6 +74,11 @@ cat %buildroot/%_datadir/mdk/indexhtml/index.html | \
 	sed "s/#MDV_PACK//" | \
 	sed "s/#LANG/en/g" \
 	> %buildroot/%_datadir/doc/HTML/index.html
+
+# about Mandriva
+install -d -m 0755 %buildroot/%_datadir/mdk/about
+cp about/html/* %buildroot/%_datadir/mdk/about
+cp -r about/style %buildroot/%_datadir/mdk/about/
 
 
 %clean
