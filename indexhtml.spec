@@ -1,6 +1,6 @@
 %define name indexhtml
 %define version 2010.0
-%define release %mkrel 1
+%define release %mkrel 2
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -37,7 +37,7 @@ find $RPM_BUILD_DIR/%name -name ".svn" -print | xargs /bin/rm -fr
 
 install -d -m 0755 %buildroot/%_datadir/mdk/indexhtml/
 tar c -C HTML . | tar x -C %buildroot/%_datadir/mdk/indexhtml/
-install -m 0755 update-indexhtml %buildroot/%_datadir/mdk/indexhtml/
+#install -m 0755 update-indexhtml %buildroot/%_datadir/mdk/indexhtml/
 
 install -d -m 0755 %buildroot/%_datadir/mdk/mail/text/
 install -d -m 0755 %buildroot/%_datadir/mdk/mail/html/
@@ -77,9 +77,10 @@ cat %buildroot/%_datadir/mdk/indexhtml/index.html | \
 
 # about Mandriva
 install -d -m 0755 %buildroot/%_datadir/mdk/about
+install -d -m 0755 %buildroot/%_datadir/applications
 cp about/html/* %buildroot/%_datadir/mdk/about
 cp -r about/style %buildroot/%_datadir/mdk/about/
-
+cp about/about-mandriva.desktop %buildroot/%_datadir/applications
 
 %clean
 rm -fr %buildroot
@@ -100,3 +101,4 @@ cat %_datadir/mdk/indexhtml/index.html | \
 %dir %_datadir/doc/HTML/
 %_datadir/doc/HTML/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
+%_datadir/applications/about-mandriva.desktop
