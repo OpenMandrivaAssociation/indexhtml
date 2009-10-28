@@ -1,6 +1,6 @@
 %define name indexhtml
 %define version 2010.0
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
@@ -81,6 +81,7 @@ install -d -m 0755 %buildroot/%_datadir/applications
 cp about/html/* %buildroot/%_datadir/mdk/about
 cp -r about/style %buildroot/%_datadir/mdk/about/
 cp about/about-mandriva.desktop %buildroot/%_datadir/applications
+cp about-mandriva %buildroot/%{_bindir}
 
 %clean
 rm -fr %buildroot
@@ -102,3 +103,4 @@ cat %_datadir/mdk/indexhtml/index.html | \
 %_datadir/doc/HTML/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %_datadir/applications/about-mandriva.desktop
+%{_bindir}/about-mandriva
