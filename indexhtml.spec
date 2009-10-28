@@ -81,7 +81,7 @@ install -d -m 0755 %buildroot/%_datadir/applications
 cp about/html/* %buildroot/%_datadir/mdk/about
 cp -r about/style %buildroot/%_datadir/mdk/about/
 cp about/about-mandriva.desktop %buildroot/%_datadir/applications
-cp about-mandriva %buildroot/%{_bindir}
+cp about/about-mandriva %buildroot/%{_bindir}
 
 %clean
 rm -fr %buildroot
