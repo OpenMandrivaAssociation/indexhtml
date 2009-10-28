@@ -78,6 +78,7 @@ cat %buildroot/%_datadir/mdk/indexhtml/index.html | \
 # about Mandriva
 install -d -m 0755 %buildroot/%_datadir/mdk/about
 install -d -m 0755 %buildroot/%_datadir/applications
+install -d -m 0755 %buildroot/%{_bindir}
 cp about/html/* %buildroot/%_datadir/mdk/about
 cp -r about/style %buildroot/%_datadir/mdk/about/
 cp about/about-mandriva.desktop %buildroot/%_datadir/applications
