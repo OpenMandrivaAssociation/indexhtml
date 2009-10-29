@@ -1,6 +1,6 @@
 %define name indexhtml
 %define version 2010.0
-%define release %mkrel 4
+%define release %mkrel 5
 
 Summary:	Mandriva Linux html welcome page
 Name:		%{name}
