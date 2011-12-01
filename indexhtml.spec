@@ -33,7 +33,7 @@ cd about
 %install
 rm -fr %buildroot/
 
-find $RPM_BUILD_DIR/%name -name ".svn" -print | xargs /bin/rm -fr
+find %{_builddir}/%name -name ".svn" -print | xargs /bin/rm -fr
 
 install -d -m 0755 %buildroot/%_datadir/mdk/indexhtml/
 tar c -C HTML . | tar x -C %buildroot/%_datadir/mdk/indexhtml/
