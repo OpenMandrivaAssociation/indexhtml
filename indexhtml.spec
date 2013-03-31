@@ -1,29 +1,22 @@
-%define name indexhtml
-%define version 2012.0
-%define release 1
-
-Summary:	Mandriva Linux html welcome page
-Name:		%{name}
-Version:	%{version}
-Release: 	%{release}
+Summary:	%{distribution}html welcome page
+Name:		indexhtml
+Version:	2012.0
+Release: 	1
 URL:		http://start.mandriva.com/
 Requires(pre):	mandriva-release-common
 Requires(post): gawk coreutils sed
 BuildRequires:  intltool
-Source:		%{name}-%{version}.tar.bz2
+Source0:	%{name}-%{version}.tar.bz2
 Group:		System/Base
-License:	GPL
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+License:	GPLv2+
 BuildArch:	noarch
 
-
 %description
-Mandriva Linux index.html welcome page displayed by web browsers
+%{distribution} index.html welcome page displayed by web browsers
 when they are launched, first mail displayed on mail clients
 after installation and "about" information.
 
 %prep
-
 %setup -q
 
 %build
@@ -31,20 +24,16 @@ cd about
 ./create_html.sh
 
 %install
-rm -fr %buildroot/
+install -d -m755 %{buildroot}%{_datadir}/mdk/indexhtml/
+tar c -C HTML . | tar x -C %{buildroot}%{_datadir}/mdk/indexhtml/
+#install -m 0755 update-indexhtml %{buildroot}%{_datadir}/mdk/indexhtml/
 
-find %{_builddir}/%name -name ".svn" -print | xargs /bin/rm -fr
-
-install -d -m 0755 %buildroot/%_datadir/mdk/indexhtml/
-tar c -C HTML . | tar x -C %buildroot/%_datadir/mdk/indexhtml/
-#install -m 0755 update-indexhtml %buildroot/%_datadir/mdk/indexhtml/
-
-install -d -m 0755 %buildroot/%_datadir/mdk/mail/text/
-install -d -m 0755 %buildroot/%_datadir/mdk/mail/html/
+install -d -m755 %{buildroot}%{_datadir}/mdk/mail/text/
+install -d -m755 %{buildroot}%{_datadir}/mdk/mail/html/
 for lang in $(find mail/header-* -type f | sed "s|mail/header-||" ); do
 	cat mail/header-$lang &> tmpfile
 	cat mail/mail-$lang.txt >> tmpfile
-	install -m 0644 tmpfile %buildroot/%_datadir/mdk/mail/text/mail-$lang
+	install -m 0644 tmpfile %{buildroot}%{_datadir}/mdk/mail/text/mail-$lang
 
 	cat mail/header-$lang &> tmpfile
 	echo "Content-Type: multipart/related; type=\"multipart/alternative\";" >>tmpfile
@@ -57,51 +46,47 @@ for lang in $(find mail/header-* -type f | sed "s|mail/header-||" ); do
 	cat mail/mail-$lang.txt >> tmpfile
 	cat mail/mail-$lang.html >> tmpfile
 	cat mail/mail-images >> tmpfile
-	install -m 0644 tmpfile %buildroot/%_datadir/mdk/mail/html/mail-$lang
+	install -m 0644 tmpfile %{buildroot}%{_datadir}/mdk/mail/html/mail-$lang
 
 done
 
-install -d -m 0755 %buildroot/%_datadir/doc/HTML/
-install -m 0644 HTML/index.html %buildroot/%_datadir/doc/HTML/index.html
-#install -d -m 0755 %buildroot/etc/sysconfig/network-scripts/ifup.d
-#cd %buildroot/etc/sysconfig/network-scripts/ifup.d
-#ln -s ../../../../%_datadir/mdk/indexhtml/update-indexhtml indexhtml
+install -d -m 0755 %{buildroot}%{_datadir}/doc/HTML/
+install -m 0644 HTML/index.html %{buildroot}%{_datadir}/doc/HTML/index.html
+#install -d -m 0755 %{buildroot}etc/sysconfig/network-scripts/ifup.d
+#cd %{buildroot}etc/sysconfig/network-scripts/ifup.d
+#ln -s ../../../../%{_datadir}/mdk/indexhtml/update-indexhtml indexhtml
 
 # add a default 
-cat %buildroot/%_datadir/mdk/indexhtml/index.html | \
+cat %{buildroot}%{_datadir}/mdk/indexhtml/index.html | \
 	sed "s/#MDV_RELEASE/`cat /etc/release`/" | \
 	sed "s/#MDV_PRODUCT/download/" | \
 	sed "s/#MDV_PACK//" | \
 	sed "s/#LANG/en/g" \
-	> %buildroot/%_datadir/doc/HTML/index.html
+	> %{buildroot}%{_datadir}/doc/HTML/index.html
 
 # about Mandriva
-install -d -m 0755 %buildroot/%_datadir/mdk/about
-install -d -m 0755 %buildroot/%_datadir/applications
-install -d -m 0755 %buildroot/%{_bindir}
-cp about/html/* %buildroot/%_datadir/mdk/about
-cp -r about/style %buildroot/%_datadir/mdk/about/
-cp about/about-mandriva.desktop %buildroot/%_datadir/applications
-cp about/about-mandriva %buildroot/%{_bindir}
-
-%clean
-rm -fr %buildroot
+install -d -m755 %{buildroot}%{_datadir}/mdk/about
+install -d -m755 %{buildroot}%{_datadir}/applications
+install -d -m755 %{buildroot}%{_bindir}
+cp about/html/* %{buildroot}%{_datadir}/mdk/about
+cp -r about/style %{buildroot}%{_datadir}/mdk/about/
+cp about/about-mandriva.desktop %{buildroot}%{_datadir}/applications
+cp about/about-mandriva %{buildroot}%{_bindir}
 
 %post
 # done to prevent excludedocs to ignore the doc/HTML
-mkdir -p  %_datadir/doc/HTML
-cat %_datadir/mdk/indexhtml/index.html | \
+mkdir -p  %{_datadir}/doc/HTML
+cat %{_datadir}/mdk/indexhtml/index.html | \
 	sed "s/#MDV_RELEASE/`cat /etc/release`/" | \
 	sed "s/#MDV_PRODUCT/`gawk -F= '/META_CLASS/ { print $2 }' /etc/sysconfig/system`/" | \
 	sed "s/#MDV_PACK//" | \
 	sed "s/#LANG/${LC_NAME/[-_]*}/g" \
-	> %_datadir/doc/HTML/index.html
+	> %{_datadir}/doc/HTML/index.html
 
 %files
-%defattr(-,root,root,-)
-%_datadir/mdk/
-%dir %_datadir/doc/HTML/
-%_datadir/doc/HTML/index.html
+%{_datadir}/mdk/
+%dir %{_datadir}/doc/HTML/
+%{_datadir}/doc/HTML/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
-%_datadir/applications/about-mandriva.desktop
+%{_datadir}/applications/about-mandriva.desktop
 %{_bindir}/about-mandriva
