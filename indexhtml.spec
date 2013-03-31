@@ -1,12 +1,12 @@
 Summary:	%{distribution}html welcome page
 Name:		indexhtml
-Version:	2012.0
-Release: 	1
+Version:	2013.0
+Release:	0.1
 URL:		http://start.mandriva.com/
 Requires(pre):	mandriva-release-common
 Requires(post): gawk coreutils sed
-BuildRequires:  intltool
-Source0:	%{name}-%{version}.tar.bz2
+BuildRequires:	intltool
+Source0:	%{name}-%{version}.tar.xz
 Group:		System/Base
 License:	GPLv2+
 BuildArch:	noarch
