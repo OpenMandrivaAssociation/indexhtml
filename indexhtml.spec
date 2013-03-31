@@ -1,7 +1,7 @@
 Summary:	%{distribution}html welcome page
 Name:		indexhtml
 Version:	2013.0
-Release:	0.1
+Release:	0.2
 URL:		http://start.mandriva.com/
 Requires(pre):	mandriva-release-common
 Requires(post): gawk coreutils sed
