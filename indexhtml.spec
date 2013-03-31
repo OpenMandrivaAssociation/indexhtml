@@ -75,12 +75,12 @@ cp about/about-mandriva %{buildroot}%{_bindir}
 
 %post
 # done to prevent excludedocs to ignore the doc/HTML
-mkdir -p  %{_datadir}/doc/HTML
-cat %{_datadir}/mdk/indexhtml/index.html | \
-	sed "s/#MDV_RELEASE/`cat /etc/release`/" | \
-	sed "s/#MDV_PRODUCT/`gawk -F= '/META_CLASS/ { print $2 }' /etc/sysconfig/system`/" | \
-	sed "s/#MDV_PACK//" | \
-	sed "s/#LANG/${LC_NAME/[-_]*}/g" \
+mkdir -p %{_datadir}/doc/HTML
+cat %{_datadir}/mdk/indexhtml/index.html | sed \
+	-e "s!#MDV_RELEASE!`cat /etc/release`!" \
+	-e "s!#MDV_PRODUCT!!"  \
+	-e "s!#MDV_PACK!!"  \
+	-e "s!#LANG!${LC_NAME/[-_]*}!g" \
 	> %{_datadir}/doc/HTML/index.html
 
 %files
