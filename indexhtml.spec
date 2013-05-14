@@ -2,14 +2,14 @@ Summary:	%{distribution}html welcome page
 Name:		indexhtml
 Version:	2013.0
 Release:	0.2
-URL:		http://start.mandriva.com/
-Requires(pre):	mandriva-release-common
-Requires(post): gawk coreutils sed
-BuildRequires:	intltool
-Source0:	%{name}-%{version}.tar.xz
 Group:		System/Base
 License:	GPLv2+
+Url:		http://start.mandriva.com/
+Source0:	%{name}-%{version}.tar.xz
 BuildArch:	noarch
+BuildRequires:	intltool
+Requires(pre):	mandriva-release-common
+Requires(post): gawk coreutils sed
 
 %description
 %{distribution} index.html welcome page displayed by web browsers
@@ -90,3 +90,4 @@ cat %{_datadir}/mdk/indexhtml/index.html | sed \
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %{_datadir}/applications/about-mandriva.desktop
 %{_bindir}/about-mandriva
+
