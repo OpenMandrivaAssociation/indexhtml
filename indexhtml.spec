@@ -1,10 +1,10 @@
 Summary:	%{distribution}html welcome page
 Name:		indexhtml
 Version:	2013.0
-Release:	0.2
+Release:	0.3
 Group:		System/Base
 License:	GPLv2+
-Url:		http://start.mandriva.com/
+Url:		http://www.openmandriva.org/
 Source0:	%{name}-%{version}.tar.xz
 BuildArch:	noarch
 BuildRequires:	intltool
@@ -45,7 +45,7 @@ for lang in $(find mail/header-* -type f | sed "s|mail/header-||" ); do
 	echo "--=-aFPGjTr5jUHhXPWxbLcT" >> tmpfile
 	cat mail/mail-$lang.txt >> tmpfile
 	cat mail/mail-$lang.html >> tmpfile
-	cat mail/mail-images >> tmpfile
+#	cat mail/mail-images >> tmpfile
 	install -m 0644 tmpfile %{buildroot}%{_datadir}/mdk/mail/html/mail-$lang
 
 done
@@ -58,8 +58,8 @@ install -m 0644 HTML/index.html %{buildroot}%{_datadir}/doc/HTML/index.html
 
 # add a default 
 cat %{buildroot}%{_datadir}/mdk/indexhtml/index.html | \
-	sed "s/#MDV_RELEASE/`cat /etc/release`/" | \
-	sed "s/#MDV_PRODUCT/download/" | \
+	sed "s/#RELEASE/`cat /etc/release`/" | \
+	sed "s/#PRODUCT_ID/openmandriva-lx/" | \
 	sed "s/#MDV_PACK//" | \
 	sed "s/#LANG/en/g" \
 	> %{buildroot}%{_datadir}/doc/HTML/index.html
@@ -70,15 +70,15 @@ install -d -m755 %{buildroot}%{_datadir}/applications
 install -d -m755 %{buildroot}%{_bindir}
 cp about/html/* %{buildroot}%{_datadir}/mdk/about
 cp -r about/style %{buildroot}%{_datadir}/mdk/about/
-cp about/about-mandriva.desktop %{buildroot}%{_datadir}/applications
-cp about/about-mandriva %{buildroot}%{_bindir}
+cp about/about-openmandriva-lx.desktop %{buildroot}%{_datadir}/applications
+cp about/about-openmandriva-lx %{buildroot}%{_bindir}
 
 %post
 # done to prevent excludedocs to ignore the doc/HTML
 mkdir -p %{_datadir}/doc/HTML
 cat %{_datadir}/mdk/indexhtml/index.html | sed \
-	-e "s!#MDV_RELEASE!`cat /etc/release`!" \
-	-e "s!#MDV_PRODUCT!!"  \
+	-e "s!#RELEASE!`cat /etc/release`!" \
+	-e "s!#PRODUCT_ID!!"  \
 	-e "s!#MDV_PACK!!"  \
 	-e "s!#LANG!${LC_NAME/[-_]*}!g" \
 	> %{_datadir}/doc/HTML/index.html
@@ -88,6 +88,6 @@ cat %{_datadir}/mdk/indexhtml/index.html | sed \
 %dir %{_datadir}/doc/HTML/
 %{_datadir}/doc/HTML/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
-%{_datadir}/applications/about-mandriva.desktop
-%{_bindir}/about-mandriva
+%{_datadir}/applications/about-openmandriva-lx.desktop
+%{_bindir}/about-openmandriva-lx
 
