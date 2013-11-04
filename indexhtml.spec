@@ -1,4 +1,4 @@
-Summary:	%{distribution}html welcome page
+Summary:	%{distribution} html welcome page
 Name:		indexhtml
 Version:	2013.0
 Release:	0.6
