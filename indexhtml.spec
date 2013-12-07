@@ -1,7 +1,7 @@
 Summary:	%{distribution} html welcome page
 Name:		indexhtml
 Version:	2013.0
-Release:	0.9
+Release:	0.10
 Group:		System/Base
 License:	GPLv2+
 Url:		http://www.openmandriva.org/
