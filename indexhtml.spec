@@ -1,14 +1,14 @@
 Summary:	%{distribution} html welcome page
 Name:		indexhtml
 Version:	2014.0
-Release:	1
+Release:	2
 Group:		System/Base
 License:	GPLv2+
 Url:		http://www.openmandriva.org/
 Source0:	%{name}-%{version}.tar.xz
 BuildArch:	noarch
 BuildRequires:	intltool
-Requires(pre):	mandriva-release-common
+Requires(pre):	distro-release-common
 Requires(post): gawk coreutils sed
 
 %description
@@ -90,4 +90,3 @@ cat %{_datadir}/mdk/indexhtml/index.html | sed \
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %{_datadir}/applications/about-openmandriva-lx.desktop
 %{_bindir}/about-openmandriva-lx
-
