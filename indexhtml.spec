@@ -25,7 +25,7 @@ cd about
 
 %install
 install -d -m755 %{buildroot}%{_datadir}/mdk/indexhtml/
-tar c -C HTML . | tar x -C %{buildroot}%{_datadir}/mdk/indexhtml/
+tar c -C HTML . | tar xf - -C %{buildroot}%{_datadir}/mdk/indexhtml/
 #install -m 0755 update-indexhtml %{buildroot}%{_datadir}/mdk/indexhtml/
 
 install -d -m755 %{buildroot}%{_datadir}/mdk/mail/text/
