@@ -51,7 +51,7 @@ for lang in $(find mail/header-* -type f | sed "s|mail/header-||" ); do
 done
 
 install -d -m 0755 %{buildroot}%{_datadir}/doc/HTML/
-install -m 0644 HTML/index.html %{buildroot}%{_datadir}/doc/HTML/index.html
+install -m 0644 HTML/index.html %{buildroot}%{_datadir}/mdk/indexhtml/index.html
 #install -d -m 0755 %{buildroot}etc/sysconfig/network-scripts/ifup.d
 #cd %{buildroot}etc/sysconfig/network-scripts/ifup.d
 #ln -s ../../../../%{_datadir}/mdk/indexhtml/update-indexhtml indexhtml
@@ -64,7 +64,7 @@ cat %{buildroot}%{_datadir}/mdk/indexhtml/index.html | \
 	sed "s/#LANG/en/g" \
 	> %{buildroot}%{_datadir}/doc/HTML/index.html
 
-# about Mandriva
+# about OpenMandriva
 install -d -m755 %{buildroot}%{_datadir}/mdk/about
 install -d -m755 %{buildroot}%{_datadir}/applications
 install -d -m755 %{buildroot}%{_bindir}
@@ -87,6 +87,7 @@ cat %{_datadir}/mdk/indexhtml/index.html | sed \
 %{_datadir}/mdk/
 %dir %{_datadir}/doc/HTML/
 %{_datadir}/doc/HTML/index.html
+%{_datadir}/mdk/indexhtml/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %{_datadir}/applications/about-openmandriva-lx.desktop
 %{_bindir}/about-openmandriva-lx
