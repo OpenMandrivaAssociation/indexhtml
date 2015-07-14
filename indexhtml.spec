@@ -87,7 +87,6 @@ cat %{_datadir}/mdk/indexhtml/index.html | sed \
 %{_datadir}/mdk/
 %dir %{_datadir}/doc/HTML/
 %{_datadir}/doc/HTML/index.html
-%{_datadir}/mdk/indexhtml/index.html
 #/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %{_datadir}/applications/about-openmandriva-lx.desktop
 %{_bindir}/about-openmandriva-lx
