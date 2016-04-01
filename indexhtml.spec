@@ -1,15 +1,17 @@
 Summary:	%{distribution} html welcome page
 Name:		indexhtml
-Version:	2014.0
-Release:	6
+Version:	2015.0
+Release:	1
 Group:		System/Base
 License:	GPLv2+
-Url:		http://www.openmandriva.org/
+Url:		%{disturl}
 Source0:	%{name}-%{version}.tar.xz
 BuildArch:	noarch
 BuildRequires:	intltool
 Requires(pre):	distro-release-common
-Requires(post): gawk coreutils sed
+Requires(post): gawk
+Requires(post): coreutils
+Requires(post): sed
 
 %description
 %{distribution} index.html welcome page displayed by web browsers
@@ -56,7 +58,7 @@ install -m 0644 HTML/index.html %{buildroot}%{_datadir}/mdk/indexhtml/index.html
 #cd %{buildroot}etc/sysconfig/network-scripts/ifup.d
 #ln -s ../../../../%{_datadir}/mdk/indexhtml/update-indexhtml indexhtml
 
-# add a default 
+# add a default
 cat %{buildroot}%{_datadir}/mdk/indexhtml/index.html | \
 	sed "s/#RELEASE/`cat /etc/release`/" | \
 	sed "s/#PRODUCT_ID/openmandriva-lx/" | \
