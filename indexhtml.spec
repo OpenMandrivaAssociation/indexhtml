@@ -1,7 +1,7 @@
 Summary:	%{distribution} html welcome page
 Name:		indexhtml
 Version:	2015.0
-Release:	1
+Release:	2
 Group:		System/Base
 License:	GPLv2+
 Url:		%{disturl}
@@ -23,12 +23,11 @@ after installation and "about" information.
 
 %build
 cd about
-./create_html.sh
+#./create_html.sh
 
 %install
 install -d -m755 %{buildroot}%{_datadir}/mdk/indexhtml/
-tar c -C HTML . | tar xf - -C %{buildroot}%{_datadir}/mdk/indexhtml/
-#install -m 0755 update-indexhtml %{buildroot}%{_datadir}/mdk/indexhtml/
+cp -a HTML/* %{buildroot}%{_datadir}/mdk/indexhtml/
 
 install -d -m755 %{buildroot}%{_datadir}/mdk/mail/text/
 install -d -m755 %{buildroot}%{_datadir}/mdk/mail/html/
@@ -52,20 +51,6 @@ for lang in $(find mail/header-* -type f | sed "s|mail/header-||" ); do
 
 done
 
-install -d -m 0755 %{buildroot}%{_datadir}/doc/HTML/
-install -m 0644 HTML/index.html %{buildroot}%{_datadir}/mdk/indexhtml/index.html
-#install -d -m 0755 %{buildroot}etc/sysconfig/network-scripts/ifup.d
-#cd %{buildroot}etc/sysconfig/network-scripts/ifup.d
-#ln -s ../../../../%{_datadir}/mdk/indexhtml/update-indexhtml indexhtml
-
-# add a default
-cat %{buildroot}%{_datadir}/mdk/indexhtml/index.html | \
-	sed "s/#RELEASE/`cat /etc/release`/" | \
-	sed "s/#PRODUCT_ID/openmandriva-lx/" | \
-	sed "s/#MDV_PACK//" | \
-	sed "s/#LANG/en/g" \
-	> %{buildroot}%{_datadir}/doc/HTML/index.html
-
 # about OpenMandriva
 install -d -m755 %{buildroot}%{_datadir}/mdk/about
 install -d -m755 %{buildroot}%{_datadir}/applications
@@ -74,21 +59,17 @@ cp about/html/* %{buildroot}%{_datadir}/mdk/about
 cp -r about/style %{buildroot}%{_datadir}/mdk/about/
 cp about/about-openmandriva-lx.desktop %{buildroot}%{_datadir}/applications
 cp about/about-openmandriva-lx %{buildroot}%{_bindir}
+mkdir -p %{buildroot}%{_datadir}/doc/HTML/
+ln -s %{_datadir}/mdk/indexhtml/index.html %{buildroot}%{_datadir}/doc/HTML/index.html
 
 %post
 # done to prevent excludedocs to ignore the doc/HTML
 mkdir -p %{_datadir}/doc/HTML
-cat %{_datadir}/mdk/indexhtml/index.html | sed \
-	-e "s!#RELEASE!`cat /etc/release`!" \
-	-e "s!#PRODUCT_ID!!"  \
-	-e "s!#MDV_PACK!!"  \
-	-e "s!#LANG!${LC_NAME/[-_]*}!g" \
-	> %{_datadir}/doc/HTML/index.html
+sed -i -e "s/#PRODUCT_ID/`cat /etc/product.id`/" -e "s/#LANG/${LC_NAME/[-_]*}/g" %{_datadir}/mdk/indexhtml/index.html
 
 %files
 %{_datadir}/mdk/
 %dir %{_datadir}/doc/HTML/
 %{_datadir}/doc/HTML/index.html
-#/etc/sysconfig/network-scripts/ifup.d/indexhtml
 %{_datadir}/applications/about-openmandriva-lx.desktop
 %{_bindir}/about-openmandriva-lx
