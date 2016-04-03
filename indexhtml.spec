@@ -23,7 +23,7 @@ after installation and "about" information.
 
 %build
 cd about
-#./create_html.sh
+./create_html.sh
 
 %install
 install -d -m755 %{buildroot}%{_datadir}/mdk/indexhtml/
